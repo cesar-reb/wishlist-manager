@@ -126,7 +126,7 @@ class WishlistServiceImplTest {
             existingWishlist = new Wishlist(customerId, existingProducts);
         }
         // WHEN METHODS
-        private Collection<String> whenConsultingAllProductsByCustomerSuccessfully() {
+        private Wishlist whenConsultingAllProductsByCustomerSuccessfully() {
             return service.getAllProductsByCustomer(customerId);
         }
         private void whenRemovingAnExistingProductSuccessfully() {
@@ -141,8 +141,8 @@ class WishlistServiceImplTest {
         }
         // THEN METHODS
 
-        private static void thenExpectAllProductsAreRetrieved(Collection<String> products) {
-            assertEquals(Set.of("product1", "product2"), products);
+        private static void thenExpectAllProductsAreRetrieved(Wishlist wishlist) {
+            assertEquals(Set.of("product1", "product2"), wishlist.getProducts());
         }
 
         private void thenExpectWishlistUpdatedWithoutProduct() {

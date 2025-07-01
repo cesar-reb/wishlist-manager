@@ -9,5 +9,5 @@ public interface WishlistService {
     Wishlist addProducts(String customerId, Collection<String> products);
     Wishlist removeProduct(String customerId, String productId);
     boolean hasProduct(String customerId, String productId);
-    Collection<String> getAllProductsByCustomer(String customerId);
+    Wishlist getAllProductsByCustomer(String customerId);
 }

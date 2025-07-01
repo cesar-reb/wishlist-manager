@@ -67,12 +67,11 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public Collection<String> getAllProductsByCustomer(String customerId) {
+    public Wishlist getAllProductsByCustomer(String customerId) {
 
         log.info("Retrieving all products for customer: {}", customerId);
 
         return repository.findById(customerId)
-                .map(Wishlist::getProducts)
                 .orElseThrow(() -> new WishlistNotFoundException(customerId));
     }
 

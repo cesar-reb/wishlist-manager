@@ -3,7 +3,7 @@ spring:
     name: wishlist-manager
   data:
     mongodb:
-      uri: mongodb://localhost:9999/dummy
+      uri: mongodb://user:password@localhost:27017/wishlist?authSource=admin
 
 
 wishlist:
