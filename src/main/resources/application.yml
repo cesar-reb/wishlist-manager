@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: wishlist-manager
+
+
+wishlist:
+  max-products: 20
