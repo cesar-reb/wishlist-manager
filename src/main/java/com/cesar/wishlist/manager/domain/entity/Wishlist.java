@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -21,14 +22,17 @@ public class Wishlist {
 
     private final Set<String> products = new HashSet<>();
 
+    private final LocalDateTime createdAt;
+
     public Wishlist(String customerId, Collection<String> products) {
         this.customerId = customerId;
         this.addProducts(products);
+        this.createdAt = LocalDateTime.now();
     }
 
     public void addProducts(Collection<String> products) {
         Optional.ofNullable(products)
-                .ifPresent(prod -> prod.forEach(this::addProduct));
+                .ifPresent(pdcts -> pdcts.forEach(this::addProduct));
     }
 
     public void addProduct(String productId) {
