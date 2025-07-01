@@ -39,21 +39,21 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public void removeProduct(String customerId, String productId) {
+    public Wishlist removeProduct(String customerId, String productId) {
 
         log.info("Removing product {} from wishlist for customer: {}", productId, customerId);
 
-        repository.findById(customerId)
-                .ifPresentOrElse(wishlist -> {
+        return repository.findById(customerId)
+                .map(wishlist -> {
                             if (wishlist.contains(productId)) {
                                 wishlist.removeProduct(productId);
-                                repository.save(wishlist);
+                                return repository.save(wishlist);
+                            } else {
+                                log.info("Product {} was not in wishlist for customer: {}", productId, customerId);
+                                return wishlist;
                             }
-                        },
-                        () -> {
-                            log.warn("Wishlist not found for customer: {}", customerId);
-                            throw new WishlistNotFoundException(customerId);
-                        });
+                        })
+                .orElseThrow(() -> new WishlistNotFoundException(customerId));
     }
 
     @Override
