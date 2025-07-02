@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 @Setter
 public class WishlistProperties {
 
-    private int maxProducts = 20;
+    private int maxProducts;
 
 }

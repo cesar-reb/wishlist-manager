@@ -4,12 +4,14 @@ import com.cesar.wishlist.manager.application.config.WishlistProperties;
 import com.cesar.wishlist.manager.domain.entity.Wishlist;
 import com.cesar.wishlist.manager.domain.exception.WishlistMaxSizeException;
 import com.cesar.wishlist.manager.domain.exception.WishlistNotFoundException;
-import com.cesar.wishlist.manager.infra.WishlistRepository;
+import com.cesar.wishlist.manager.infra.WishlistMongoRepository;
+import com.cesar.wishlist.manager.port.in.WishlistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Service
@@ -17,7 +19,7 @@ import java.util.function.Supplier;
 @RequiredArgsConstructor
 public class WishlistServiceImpl implements WishlistService {
 
-    private final WishlistRepository repository;
+    private final WishlistMongoRepository repository;
 
     private final WishlistProperties wishlistProperties;
 
@@ -27,12 +29,7 @@ public class WishlistServiceImpl implements WishlistService {
         log.info("Adding {} products to wishlist for customer: {}", products.size(), customerId);
 
         var wishlist = repository.findById(customerId)
-                .map(wishlistFound -> {
-                    log.info("Wishlist found for customer: {}", customerId);
-                    ensureWishlistSizeRestriction(wishlistFound.getProducts().size(), products.size());
-                    wishlistFound.addProducts(products);
-                    return wishlistFound;
-                })
+                .map(updateWishlist(customerId, products))
                 .orElseGet(createNewWishlist(customerId, products));
 
         return repository.save(wishlist);
@@ -44,15 +41,7 @@ public class WishlistServiceImpl implements WishlistService {
         log.info("Removing product {} from wishlist for customer: {}", productId, customerId);
 
         return repository.findById(customerId)
-                .map(wishlist -> {
-                            if (wishlist.contains(productId)) {
-                                wishlist.removeProduct(productId);
-                                return repository.save(wishlist);
-                            } else {
-                                log.info("Product {} was not in wishlist for customer: {}", productId, customerId);
-                                return wishlist;
-                            }
-                        })
+                .map(removeProductFromWishlist(customerId, productId))
                 .orElseThrow(() -> new WishlistNotFoundException(customerId));
     }
 
@@ -80,6 +69,32 @@ public class WishlistServiceImpl implements WishlistService {
             log.info("Creating new wishlist for customer: {}", customerId);
             ensureWishlistSizeRestriction(0, products.size());
             return new Wishlist(customerId, products);
+        };
+    }
+
+    private Function<Wishlist, Wishlist> updateWishlist(String customerId, Collection<String> products) {
+        return wishlist -> {
+            log.info("Updating Wishlist found for customer: {}", customerId);
+
+            var productsToInsert = products.stream()
+                    .filter( product -> !wishlist.contains(product))
+                    .toList();
+
+            ensureWishlistSizeRestriction(wishlist.getProducts().size(), productsToInsert.size());
+            wishlist.addProducts(productsToInsert);
+            return wishlist;
+        };
+    }
+
+    private Function<Wishlist, Wishlist> removeProductFromWishlist(String customerId, String productId) {
+        return wishlist -> {
+            if (wishlist.contains(productId)) {
+                wishlist.removeProduct(productId);
+                return repository.save(wishlist);
+            } else {
+                log.info("Product {} was not in wishlist for customer: {}", productId, customerId);
+                return wishlist;
+            }
         };
     }
 

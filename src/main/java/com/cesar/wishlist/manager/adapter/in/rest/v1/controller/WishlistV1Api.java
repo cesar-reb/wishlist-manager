@@ -1,8 +1,8 @@
-package com.cesar.wishlist.manager.api.v1;
+package com.cesar.wishlist.manager.adapter.in.rest.v1.controller;
 
-import com.cesar.wishlist.manager.api.v1.dto.WishlistAddProductsDto;
-import com.cesar.wishlist.manager.api.v1.dto.WishlistProductCheckResponseDto;
-import com.cesar.wishlist.manager.api.v1.dto.WishlistResponseDto;
+import com.cesar.wishlist.manager.adapter.in.rest.v1.dto.request.WishlistAddProductsDto;
+import com.cesar.wishlist.manager.adapter.in.rest.v1.dto.response.WishlistProductCheckResponseDto;
+import com.cesar.wishlist.manager.adapter.in.rest.v1.dto.response.WishlistResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

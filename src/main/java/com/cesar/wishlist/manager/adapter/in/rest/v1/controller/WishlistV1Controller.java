@@ -1,9 +1,9 @@
-package com.cesar.wishlist.manager.api.v1;
+package com.cesar.wishlist.manager.adapter.in.rest.v1.controller;
 
-import com.cesar.wishlist.manager.api.v1.dto.WishlistAddProductsDto;
-import com.cesar.wishlist.manager.api.v1.dto.WishlistProductCheckResponseDto;
-import com.cesar.wishlist.manager.api.v1.dto.WishlistResponseDto;
-import com.cesar.wishlist.manager.application.service.WishlistService;
+import com.cesar.wishlist.manager.adapter.in.rest.v1.dto.request.WishlistAddProductsDto;
+import com.cesar.wishlist.manager.adapter.in.rest.v1.dto.response.WishlistProductCheckResponseDto;
+import com.cesar.wishlist.manager.adapter.in.rest.v1.dto.response.WishlistResponseDto;
+import com.cesar.wishlist.manager.port.in.WishlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

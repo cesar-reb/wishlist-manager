@@ -4,7 +4,7 @@ import com.cesar.wishlist.manager.application.config.WishlistProperties;
 import com.cesar.wishlist.manager.domain.entity.Wishlist;
 import com.cesar.wishlist.manager.domain.exception.WishlistMaxSizeException;
 import com.cesar.wishlist.manager.domain.exception.WishlistNotFoundException;
-import com.cesar.wishlist.manager.infra.WishlistRepository;
+import com.cesar.wishlist.manager.infra.WishlistMongoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 class WishlistServiceImplTest {
 
     @Mock
-    private WishlistRepository repository;
+    private WishlistMongoRepository repository;
     @Mock
     private WishlistProperties properties;
     @InjectMocks

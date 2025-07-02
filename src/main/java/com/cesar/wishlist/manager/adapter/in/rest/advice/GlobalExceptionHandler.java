@@ -1,6 +1,6 @@
-package com.cesar.wishlist.manager.api.handler;
+package com.cesar.wishlist.manager.adapter.in.rest.advice;
 
-import com.cesar.wishlist.manager.api.v1.dto.ApiErrorResponse;
+import com.cesar.wishlist.manager.adapter.in.rest.v1.dto.response.ApiErrorResponse;
 import com.cesar.wishlist.manager.domain.exception.WishlistMaxSizeException;
 import com.cesar.wishlist.manager.domain.exception.WishlistNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;

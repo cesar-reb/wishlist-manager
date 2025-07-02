@@ -1,4 +1,4 @@
-package com.cesar.wishlist.manager.application.service;
+package com.cesar.wishlist.manager.port.in;
 
 import com.cesar.wishlist.manager.domain.entity.Wishlist;
 

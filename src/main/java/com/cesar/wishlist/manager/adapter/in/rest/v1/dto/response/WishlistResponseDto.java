@@ -1,4 +1,4 @@
-package com.cesar.wishlist.manager.api.v1.dto;
+package com.cesar.wishlist.manager.adapter.in.rest.v1.dto.response;
 
 import com.cesar.wishlist.manager.domain.entity.Wishlist;
 import com.fasterxml.jackson.annotation.JsonInclude;
